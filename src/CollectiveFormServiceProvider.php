@@ -12,6 +12,11 @@ class CollectiveFormServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind('form-helper', FormHelper::class);
+
+        if($this->app->environment('testing'))
+        {
+            $this->loadRoutesFrom(__DIR__.'/example-routes.php');
+        }
     }
 
     public function provides()
