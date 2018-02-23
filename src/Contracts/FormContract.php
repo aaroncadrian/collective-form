@@ -4,7 +4,7 @@ namespace AaronAdrian\CollectiveForm\Contracts;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-interface Form extends Arrayable
+interface FormContract extends Arrayable
 {
     public function post($uri = '', array $parameters = []);
 
