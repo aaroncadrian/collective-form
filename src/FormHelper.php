@@ -2,7 +2,7 @@
 
 namespace AaronAdrian\CollectiveForm;
 
-use AaronAdrian\CollectiveForm\Contracts\Form as FormContract;
+use AaronAdrian\CollectiveForm\Contracts\FormContract;
 
 class FormHelper implements FormContract
 {
