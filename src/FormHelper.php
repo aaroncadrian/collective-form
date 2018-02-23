@@ -79,7 +79,7 @@ class FormHelper implements FormContract
 
     public function url($url)
     {
-
+        $this->attributes['url'] = $url;
         return $this;
     }
 }
