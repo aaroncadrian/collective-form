@@ -2,6 +2,7 @@
 
 namespace AaronAdrian\CollectiveForm;
 
+use AaronAdrian\CollectiveForm\Contracts\FormContract;
 use Illuminate\Support\ServiceProvider;
 
 class CollectiveFormServiceProvider extends ServiceProvider
@@ -11,7 +12,7 @@ class CollectiveFormServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->bind('form-helper', FormHelper::class);
+        $this->app->bind(FormContract::class, FormHelper::class);
 
         if($this->app->environment('testing'))
         {
@@ -22,7 +23,7 @@ class CollectiveFormServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'form-helper',
+            FormContract::class,
         ];
     }
 }
