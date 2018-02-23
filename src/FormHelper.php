@@ -13,29 +13,29 @@ class FormHelper implements FormContract
         $this->attributes = collect();
     }
 
-    public function post($url = '', array $options = [])
+    public function post($uri = '', array $parameters = [])
     {
-        return $this->set_method('post', $url, $options);
+        return $this->set_method('post', $uri, $parameters);
     }
 
-    public function get($url = '', array $options = [])
+    public function get($uri = '', array $parameters = [])
     {
-        return $this->set_method('get', $url, $options);
+        return $this->set_method('get', $uri, $parameters);
     }
 
-    public function patch($url = '', array $options = [])
+    public function patch($uri = '', array $parameters = [])
     {
-        return $this->set_method('patch', $url, $options);
+        return $this->set_method('patch', $uri, $parameters);
     }
 
-    public function put($url = '', array $options = [])
+    public function put($uri = '', array $parameters = [])
     {
-        return $this->set_method('put', $url, $options);
+        return $this->set_method('put', $uri, $parameters);
     }
 
-    public function delete($url = '', array $options = [])
+    public function delete($uri = '', array $parameters = [])
     {
-        return $this->set_method('delete', $url, $options);
+        return $this->set_method('delete', $uri, $parameters);
     }
 
     public function files($files = true)
@@ -44,16 +44,16 @@ class FormHelper implements FormContract
         return $this;
     }
 
-    protected function set_method($method, $url = '', array $options = [])
+    protected function set_method($method, $uri = '', array $parameters = [])
     {
         $this->attributes['method'] = $method;
 
-        if($url) {
-            $this->attributes['url'] = value(function() use ($url, $options) {
-                if(count($options) === 0) {
-                    return $url;
+        if($uri) {
+            $this->attributes['url'] = value(function() use ($uri, $parameters) {
+                if(count($parameters) === 0) {
+                    return $uri;
                 }
-                return route($url, $options);
+                return route($uri, $parameters);
             });
         }
 
@@ -71,9 +71,15 @@ class FormHelper implements FormContract
         return $this;
     }
 
-    public function route($uri, array $options = [])
+    public function route($uri, array $parameters = [])
     {
-        $this->attributes['url'] = route($uri, $options);
+        $this->attributes['url'] = route($uri, $parameters);
+        return $this;
+    }
+
+    public function url($url)
+    {
+
         return $this;
     }
 }
