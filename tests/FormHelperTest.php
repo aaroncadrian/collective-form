@@ -8,19 +8,19 @@ class FormHelperTest extends TestCase
 {
 
     /** @test */
-    public function post_with_uri()
+    public function get_with_uri()
     {
-        $form = Form::post('url/to/go/to')->toArray();
+        $form = Form::get('example.show')->toArray();
         $this->assertArraySubset([
-            'url' => 'url/to/go/to',
-            'method' => 'post',
+            'url' => 'http://form.test/example-show',
+            'method' => 'get',
         ], $form);
     }
 
     /** @test */
     public function post_with_url()
     {
-        $form = Form::post('https://api.somewhere.test/example')->toArray();
+        $form = Form::post()->url('https://api.somewhere.test/example')->toArray();
         $this->assertArraySubset([
             'url' => 'https://api.somewhere.test/example',
             'method' => 'post',
@@ -28,18 +28,20 @@ class FormHelperTest extends TestCase
     }
 
     /** @test */
-    public function post_with_url_and_files()
+    public function patch_with_url_and_files()
     {
-        $form = Form::post('https://api.somewhere.test/example')->files()->toArray();
+        $form = Form::patch()->url('https://api.somewhere.test/example')->files()->toArray();
         $this->assertArraySubset([
             'files' => true,
+            'url' => 'https://api.somewhere.test/example',
+            'method' => 'patch',
         ], $form);
     }
 
     /** @test */
     public function files_off()
     {
-        $form = Form::post('https://api.somewhere.test/example')->files(false)->toArray();
+        $form = Form::post()->files(false)->toArray();
         $this->assertArraySubset([
             'files' => false,
         ], $form);
@@ -48,7 +50,7 @@ class FormHelperTest extends TestCase
     /** @test */
     public function route_testing()
     {
-        $form = Form::post()->route('example.show')->toArray();
+        $form = Form::post('example.show')->toArray();
         $this->assertArraySubset([
             'url' => 'http://form.test/example-show',
         ], $form);
@@ -57,7 +59,7 @@ class FormHelperTest extends TestCase
     /** @test */
     public function route_testing_with_options()
     {
-        $form = Form::post()->route('example.store', ['form' => 'test'])->toArray();
+        $form = Form::post('example.store', ['form' => 'test'])->toArray();
         $this->assertArraySubset([
             'url' => 'http://form.test/example-store/test',
         ], $form);
