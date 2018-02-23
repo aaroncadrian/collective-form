@@ -16,5 +16,15 @@
             "name": "Aaron Adrian",
             "email": "aaroncadrian@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "AaronAdrian\\CollectiveForm\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AaronAdrian\\CollectiveForm\\Tests\\": "tests/"
+        }
+    }
 }
