@@ -47,16 +47,9 @@ class FormHelper implements FormContract
     protected function set_method($method, $uri = '', array $parameters = [])
     {
         $this->attributes['method'] = $method;
-
         if($uri) {
-            $this->attributes['url'] = value(function() use ($uri, $parameters) {
-                if(count($parameters) === 0) {
-                    return $uri;
-                }
-                return route($uri, $parameters);
-            });
+            $this->route($uri, $parameters);
         }
-
         return $this;
     }
 
