@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 
 class CollectiveFormServiceProvider extends ServiceProvider
 {
-
     protected $defer = true;
 
     public function boot()
@@ -21,27 +20,27 @@ class CollectiveFormServiceProvider extends ServiceProvider
 
     protected function registerOpenerMacro()
     {
-        $builder = $this->app->make('form');
+        $this->app->afterResolving('form', function($builder) {
+            $builder->macro('opener', function($opener) use ($builder) {
+                return $builder->open(value(function() use($opener) {
 
-        $builder->macro('opener', function($opener) use ($builder) {
-            return $builder->open(value(function() use($opener) {
+                    if(is_array($opener))
+                    {
+                        return $opener;
+                    }
 
-                if($opener instanceof Arrayable) {
-                    return $opener->toArray();
-                }
+                    if($opener instanceof Arrayable) {
+                        return $opener->toArray();
+                    }
 
-                if(is_array($opener))
-                {
-                    return $opener;
-                }
+                    if($opener instanceof Renderable) {
+                        return $opener->render();
+                    }
 
-                if($opener instanceof Renderable) {
-                    return $opener->render();
-                }
+                    throw new \Exception('Object for Form::opener() is not an array, Arrayable, or Renderable.');
 
-                throw new \Exception('Object for Form::opener() is not an array, Arrayable, or Renderable.');
-
-            }));
+                }));
+            });
         });
     }
 
