@@ -21,7 +21,7 @@ class CollectiveFormServiceProvider extends ServiceProvider
 
     protected function registerOpenerMacro()
     {
-        $builder = app('form');
+        $builder = $this->app->make('form');
 
         $builder->macro('opener', function($opener) use ($builder) {
             return $builder->open(value(function() use($opener) {
