@@ -60,7 +60,7 @@ class FormHelper implements FormContract
 
     public function with(array $options)
     {
-        $this->attributes->merge($options);
+        $this->attributes = $this->attributes->merge($options);
         return $this;
     }
 
