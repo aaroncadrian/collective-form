@@ -75,4 +75,13 @@ class FormHelper implements FormContract
         $this->attributes['url'] = $url;
         return $this;
     }
+
+    public function when(callable $condition, callable $ifTrue, callable $ifFalse)
+    {
+        if($condition() === true)
+        {
+            return $ifTrue($this);
+        }
+        return $ifFalse($this);
+    }
 }
