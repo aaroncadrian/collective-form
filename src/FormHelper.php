@@ -104,18 +104,17 @@ class FormHelper implements FormContract
 
     protected function renderWhenCases()
     {
-        foreach($this->whenCases as $case)
-        {
+        $this->whenCases->each(function($case) {
             if($case['condition']() === true)
             {
-                $case['ifTrue']($this);
-                continue;
+                return $case['ifTrue']($this);
             }
 
             if(!is_null($case['ifFalse']))
             {
-                $case['ifFalse']($this);
+                return $case['ifFalse']($this);
             }
-        }
+        });
+
     }
 }
