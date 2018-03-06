@@ -11,11 +11,15 @@ class FormHelper implements FormContract
      */
     protected $attributes;
 
-    protected $whenCases = [];
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    protected $whenCases;
 
     public function __construct()
     {
         $this->attributes = collect();
+        $this->whenCases = collect();
     }
 
     public function post($uri = '', array $parameters = [])
@@ -84,11 +88,11 @@ class FormHelper implements FormContract
 
     public function when(callable $condition, callable $ifTrue, callable $ifFalse = null)
     {
-        $this->whenCases[] = [
+        $this->whenCases->push([
             'condition' => $condition,
             'ifTrue' => $ifTrue,
             'ifFalse' => $ifFalse,
-        ];
+        ]);
 
         return $this;
     }
