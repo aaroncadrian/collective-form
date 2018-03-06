@@ -15,27 +15,27 @@ class FormHelper implements FormContract
 
     public function post($uri = '', array $parameters = [])
     {
-        return $this->set_method('post', $uri, $parameters);
+        return $this->method('post', $uri, $parameters);
     }
 
     public function get($uri = '', array $parameters = [])
     {
-        return $this->set_method('get', $uri, $parameters);
+        return $this->method('get', $uri, $parameters);
     }
 
     public function patch($uri = '', array $parameters = [])
     {
-        return $this->set_method('patch', $uri, $parameters);
+        return $this->method('patch', $uri, $parameters);
     }
 
     public function put($uri = '', array $parameters = [])
     {
-        return $this->set_method('put', $uri, $parameters);
+        return $this->method('put', $uri, $parameters);
     }
 
     public function delete($uri = '', array $parameters = [])
     {
-        return $this->set_method('delete', $uri, $parameters);
+        return $this->method('delete', $uri, $parameters);
     }
 
     public function files($files = true)
@@ -44,7 +44,7 @@ class FormHelper implements FormContract
         return $this;
     }
 
-    protected function set_method($method, $uri = '', array $parameters = [])
+    public function method($method, $uri = '', array $parameters = [])
     {
         $this->attributes['method'] = $method;
         if($uri) {
