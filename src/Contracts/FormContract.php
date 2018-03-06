@@ -24,6 +24,6 @@ interface FormContract extends Arrayable
 
     public function with(array $options);
 
-    public function when(callable $condition, callable $ifTrue, callable $ifFalse);
+    public function when(callable $condition, callable $ifTrue, callable $ifFalse = null);
 
 }
