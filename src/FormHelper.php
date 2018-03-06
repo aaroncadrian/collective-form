@@ -6,7 +6,12 @@ use AaronAdrian\CollectiveForm\Contracts\FormContract;
 
 class FormHelper implements FormContract
 {
+    /**
+     * @var \Illuminate\Support\Collection
+     */
     protected $attributes;
+
+    protected $whenCases = [];
 
     public function __construct()
     {
@@ -55,6 +60,7 @@ class FormHelper implements FormContract
 
     public function toArray()
     {
+        $this->render();
         return $this->attributes->toArray();
     }
 
@@ -76,12 +82,36 @@ class FormHelper implements FormContract
         return $this;
     }
 
-    public function when(callable $condition, callable $ifTrue, callable $ifFalse)
+    public function when(callable $condition, callable $ifTrue, callable $ifFalse = null)
     {
-        if($condition() === true)
+        $this->whenCases[] = [
+            'condition' => $condition,
+            'ifTrue' => $ifTrue,
+            'ifFalse' => $ifFalse,
+        ];
+
+        return $this;
+    }
+
+    protected function render()
+    {
+        $this->renderWhenCases();
+    }
+
+    protected function renderWhenCases()
+    {
+        foreach($this->whenCases as $case)
         {
-            return $ifTrue($this);
+            if($case['condition']() === true)
+            {
+                $case['ifTrue']($this);
+                continue;
+            }
+
+            if(!is_null($case['ifFalse']))
+            {
+                $case['ifFalse']($this);
+            }
         }
-        return $ifFalse($this);
     }
 }
