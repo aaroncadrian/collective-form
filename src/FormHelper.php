@@ -86,7 +86,7 @@ class FormHelper implements FormContract
         return $this;
     }
 
-    public function when(callable $condition, callable $ifTrue, callable $ifFalse = null)
+    public function when($condition, callable $ifTrue, callable $ifFalse = null)
     {
         $this->whenCases->push([
             'condition' => $condition,
