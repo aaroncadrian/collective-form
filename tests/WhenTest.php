@@ -57,7 +57,22 @@ class WhenTest extends TestCase
     }
 
     /** @test */
-    public function when_condition_is_true_without_ifFalse_callable()
+    public function when_condition_is_true_without_ifFalse_callable_positioned_before()
+    {
+        $form = Form::post()->url('/is-false')->when(function() {
+            return true;
+        }, function(FormHelper $form) {
+            return $form->patch()->url('/is-true');
+        })->toArray();
+
+        $this->assertArraySubset([
+            'method' => 'patch',
+            'url' => '/is-true',
+        ], $form);
+    }
+
+    /** @test */
+    public function when_condition_is_true_without_ifFalse_callable_positioned_after()
     {
         $form = Form::when(function() {
             return true;
@@ -69,5 +84,6 @@ class WhenTest extends TestCase
             'method' => 'patch',
             'url' => '/is-true',
         ], $form);
+
     }
 }
