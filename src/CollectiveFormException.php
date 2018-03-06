@@ -2,7 +2,7 @@
 
 namespace AaronAdrian\CollectiveForm;
 
-class CollectiveFormException
+class CollectiveFormException extends \Exception
 {
-
+    //
 }
