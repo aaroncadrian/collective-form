@@ -105,7 +105,7 @@ class FormHelper implements FormContract
     protected function renderWhenCases()
     {
         $this->whenCases->each(function($case) {
-            if($case['condition']() === true)
+            if($this->determineCondition($case['condition']) === true)
             {
                 return $case['ifTrue']($this);
             }
@@ -116,5 +116,29 @@ class FormHelper implements FormContract
             }
         });
 
+    }
+
+    /**
+     * @param callable|boolean $condition
+     * @throws CollectiveFormException
+     */
+    protected function determineCondition($condition)
+    {
+        if(is_callable($condition))
+        {
+            $result = $condition();
+            if(!is_bool($result))
+            {
+                throw new CollectiveFormException('Return value from callable is not a boolean.');
+            }
+            return $result;
+        }
+
+        if(is_bool($condition))
+        {
+            return $condition;
+        }
+
+        throw new CollectiveFormException('Condition passed to FormHelper is not callable or a boolean.');
     }
 }
