@@ -64,4 +64,13 @@ class FormHelperTest extends TestCase
             'url' => 'http://form.test/example-store/test',
         ], $form);
     }
+
+    /** @test */
+    public function use_the_with_method()
+    {
+        $form = Form::post()->url('/')->with(['id' => 'testing-id'])->toArray();
+        $this->assertArraySubset([
+            'id' => 'testing-id',
+        ], $form);
+    }
 }
