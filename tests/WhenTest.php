@@ -40,4 +40,34 @@ class WhenTest extends TestCase
             'url' => '/is-false',
         ], $form);
     }
+
+    /** @test */
+    public function when_condition_is_false_without_ifFalse_callable()
+    {
+        $form = Form::when(function() {
+            return false;
+        }, function(FormHelper $form) {
+            return $form->patch()->url('/is-true');
+        })->post()->url('/is-false')->toArray();
+
+        $this->assertArraySubset([
+            'method' => 'post',
+            'url' => '/is-false',
+        ], $form);
+    }
+
+    /** @test */
+    public function when_condition_is_true_without_ifFalse_callable()
+    {
+        $form = Form::when(function() {
+            return true;
+        }, function(FormHelper $form) {
+            return $form->patch()->url('/is-true');
+        })->post()->url('/is-false')->toArray();
+
+        $this->assertArraySubset([
+            'method' => 'patch',
+            'url' => '/is-true',
+        ], $form);
+    }
 }
