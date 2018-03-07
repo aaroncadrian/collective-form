@@ -2,6 +2,7 @@
 
 namespace AaronAdrian\CollectiveForm\Tests;
 
+use AaronAdrian\CollectiveForm\CollectiveFormException;
 use AaronAdrian\CollectiveForm\Facades\Form;
 use AaronAdrian\CollectiveForm\FormHelper;
 
@@ -84,6 +85,17 @@ class WhenTest extends TestCase
             'method' => 'patch',
             'url' => '/is-true',
         ], $form);
+
+    }
+
+    /** @test */
+    public function expect_exception_if_pass_string_as_condition()
+    {
+        $this->expectException(CollectiveFormException::class);
+        $this->expectExceptionMessage('Condition does not resolve to be a boolean value');
+        Form::when('true', function(FormHelper $form) {
+            return $form->patch()->url('/is-true');
+        })->post()->url('/is-false')->toArray();
 
     }
 }
