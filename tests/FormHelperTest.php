@@ -3,11 +3,15 @@
 namespace AaronAdrian\CollectiveForm\Tests;
 
 use AaronAdrian\CollectiveForm\Facades\Form;
+use AaronAdrian\CollectiveForm\Services\FormHelper;
 
 class FormHelperTest extends TestCase
 {
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelper::get()
+     */
     public function get_with_uri()
     {
         $this->assertArraySubset([
@@ -17,7 +21,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelperAttributes::id()
+     */
     public function id_attribute()
     {
         $this->assertArraySubset([
@@ -25,7 +32,21 @@ class FormHelperTest extends TestCase
         ], Form::get('example.show')->id('example-test-form')->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelperAttributes::addAttribute()
+     */
+    public function add_attribute()
+    {
+        $this->assertArraySubset([
+            'id' => 'example-test-form',
+        ], Form::get('example.show')->id('example-test-form')->toArray());
+    }
+
+    /**
+     * @test
+     * @covers FormHelper::post()
+     */
     public function post_with_url()
     {
         $this->assertArraySubset([
@@ -36,7 +57,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @coversNothing
+     */
     public function does_not_double_methods()
     {
         $this->assertArraySubset([
@@ -46,7 +70,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @coversNothing
+     */
     public function does_not_double_routes()
     {
         $this->assertArraySubset([
@@ -56,7 +83,11 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelper::url()
+     * @covers FormHelper::files()
+     */
     public function patch_with_url_and_files()
     {
         $this->assertArraySubset([
@@ -69,7 +100,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelper::files()
+     */
     public function files_off()
     {
         $this->assertArraySubset([
@@ -79,7 +113,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelper::method()
+     */
     public function route_testing()
     {
         $this->assertArraySubset([
@@ -88,7 +125,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelper::method()
+     */
     public function route_testing_with_options()
     {
         $this->assertArraySubset([
@@ -97,7 +137,10 @@ class FormHelperTest extends TestCase
             ->toArray());
     }
 
-    /** @test */
+    /**
+     * @test
+     * @covers FormHelper::with()
+     */
     public function use_the_with_method()
     {
         $this->assertArraySubset([
