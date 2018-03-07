@@ -45,12 +45,11 @@ class WhenCase
      */
     public function handle()
     {
-        if($this->conditionIsTrue())
-        {
+        if($this->conditionIsTrue()) {
             $this->handleTrue();
+        } else {
+            $this->handleFalse();
         }
-
-        $this->handleFalse();
     }
 
     protected function handleTrue()
