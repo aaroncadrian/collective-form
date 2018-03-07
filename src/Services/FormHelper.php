@@ -2,12 +2,13 @@
 
 namespace AaronAdrian\CollectiveForm\Services;
 
+use AaronAdrian\CollectiveForm\Services\Traits\FormHelperAttributes;
 use AaronAdrian\CollectiveForm\Services\Traits\FormHelperWhenCases;
 use Illuminate\Contracts\Support\Arrayable;
 
 class FormHelper implements Arrayable
 {
-    use FormHelperWhenCases;
+    use FormHelperWhenCases, FormHelperAttributes;
     /**
      * Repository for all attributes.
      *
@@ -77,16 +78,6 @@ class FormHelper implements Arrayable
     }
 
     /**
-     * @param bool $files
-     * @return $this
-     */
-    public function files($files = true)
-    {
-        $this->attributes['files'] = $files;
-        return $this;
-    }
-
-    /**
      * @param $method
      * @param string $uri
      * @param array $parameters
@@ -108,20 +99,6 @@ class FormHelper implements Arrayable
     {
         $this->renderWhenCases();
         return $this->attributes->toArray();
-    }
-
-    /**
-     * Merge an array of options with current attributes collection.
-     *
-     * @see attributes
-     *
-     * @param array $options
-     * @return $this
-     */
-    public function with(array $options)
-    {
-        $this->attributes = $this->attributes->merge($options);
-        return $this;
     }
 
     /**
