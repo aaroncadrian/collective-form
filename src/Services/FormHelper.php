@@ -1,7 +1,8 @@
 <?php
 
-namespace AaronAdrian\CollectiveForm;
+namespace AaronAdrian\CollectiveForm\Services;
 
+use AaronAdrian\CollectiveForm\Services\Traits\FormHelperWhenCases;
 use Illuminate\Contracts\Support\Arrayable;
 
 class FormHelper implements Arrayable

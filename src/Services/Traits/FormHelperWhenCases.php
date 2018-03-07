@@ -1,6 +1,8 @@
 <?php
 
-namespace AaronAdrian\CollectiveForm;
+namespace AaronAdrian\CollectiveForm\Services\Traits;
+
+use AaronAdrian\CollectiveForm\Services\WhenCase;
 
 trait FormHelperWhenCases
 {

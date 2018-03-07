@@ -1,6 +1,6 @@
 <?php
 
-namespace AaronAdrian\CollectiveForm;
+namespace AaronAdrian\CollectiveForm\Services;
 
 use AaronAdrian\CollectiveForm\Exceptions\CollectiveFormException;
 
