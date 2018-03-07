@@ -2,6 +2,7 @@
 
 namespace AaronAdrian\CollectiveForm;
 
+use AaronAdrian\CollectiveForm\Services\FormHelper;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\ServiceProvider;
