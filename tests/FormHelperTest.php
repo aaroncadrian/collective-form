@@ -39,8 +39,8 @@ class FormHelperTest extends TestCase
     public function add_attribute()
     {
         $this->assertArraySubset([
-            'id' => 'example-test-form',
-        ], Form::get('example.show')->id('example-test-form')->toArray());
+            'name' => 'example-test-form',
+        ], Form::get('example.show')->addAttribute('name', 'example-test-form')->toArray());
     }
 
     /**
