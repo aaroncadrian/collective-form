@@ -39,6 +39,71 @@ trait FormHelperWhenCases
     }
 
     /**
+     * @param bool|callable $condition
+     * @param string $url
+     * @return $this
+     */
+    public function getWhen($condition, $url)
+    {
+        $this->when($condition, function($form) use($url) {
+            $form->get()->url($url);
+        });
+        return $this;
+    }
+
+    /**
+     * @param bool|callable $condition
+     * @param string $url
+     * @return $this
+     */
+    public function postWhen($condition, $url)
+    {
+        $this->when($condition, function($form) use($url) {
+            $form->post()->url($url);
+        });
+        return $this;
+    }
+
+    /**
+     * @param bool|callable $condition
+     * @param string $url
+     * @return $this
+     */
+    public function patchWhen($condition, $url)
+    {
+        $this->when($condition, function($form) use($url) {
+            $form->patch()->url($url);
+        });
+        return $this;
+    }
+
+    /**
+     * @param bool|callable $condition
+     * @param string $url
+     * @return $this
+     */
+    public function putWhen($condition, $url)
+    {
+        $this->when($condition, function($form) use($url) {
+            $form->put()->url($url);
+        });
+        return $this;
+    }
+
+    /**
+     * @param bool|callable $condition
+     * @param string $url
+     * @return $this
+     */
+    public function deleteWhen($condition, $url)
+    {
+        $this->when($condition, function($form) use($url) {
+            $form->delete()->url($url);
+        });
+        return $this;
+    }
+
+    /**
      * Handle each WhenCase.
      *
      * @return void
