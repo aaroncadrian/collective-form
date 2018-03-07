@@ -96,6 +96,17 @@ class WhenTest extends TestCase
         Form::when('true', function(FormHelper $form) {
             return $form->patch()->url('/is-true');
         })->post()->url('/is-false')->toArray();
+    }
 
+    /** @test */
+    public function expect_exception_if_pass_callable_returning_string_as_condition()
+    {
+        $this->expectException(CollectiveFormException::class);
+        $this->expectExceptionMessage('Condition does not resolve to be a boolean value');
+        Form::when(function() {
+            return 'true';
+        }, function(FormHelper $form) {
+            return $form->patch()->url('/is-true');
+        })->post()->url('/is-false')->toArray();
     }
 }
