@@ -108,7 +108,7 @@ class FormHelper implements Arrayable
      */
     public function route($uri, array $parameters = [])
     {
-        $this->attributes['url'] = route($uri, $parameters);
+        $this->attributes['route'] = array_prepend($parameters, $uri);
         return $this;
     }
 
@@ -121,7 +121,5 @@ class FormHelper implements Arrayable
         $this->attributes['url'] = $url;
         return $this;
     }
-
-
 
 }
