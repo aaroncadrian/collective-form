@@ -78,7 +78,7 @@ class WhenTest extends TestCase
         $form = Form::when(function() {
             return true;
         }, function(FormHelper $form) {
-            return $form->patch()->url('/is-true');
+            $form->patch()->url('/is-true');
         })->post()->url('/is-false')->toArray();
 
         $this->assertArraySubset([
@@ -94,7 +94,7 @@ class WhenTest extends TestCase
         $this->expectException(CollectiveFormException::class);
         $this->expectExceptionMessage('Condition does not resolve to be a boolean value');
         Form::when('true', function(FormHelper $form) {
-            return $form->patch()->url('/is-true');
+            $form->patch()->url('/is-true');
         })->post()->url('/is-false')->toArray();
     }
 
@@ -106,7 +106,7 @@ class WhenTest extends TestCase
         Form::when(function() {
             return 'true';
         }, function(FormHelper $form) {
-            return $form->patch()->url('/is-true');
+            $form->patch()->url('/is-true');
         })->post()->url('/is-false')->toArray();
     }
 }
