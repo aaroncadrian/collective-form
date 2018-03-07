@@ -5,6 +5,26 @@ namespace AaronAdrian\CollectiveForm;
 trait FormHelperWhenCases
 {
     /**
+     * Repository for all WhenCase instances.
+     *
+     * @see renderWhenCases
+     *
+     * @var \Illuminate\Support\Collection
+     */
+    protected $whenCases;
+
+    /*
+     * Complete all WhenCase logic for the FormHelper constructor.
+     */
+    protected function constructWhenCases()
+    {
+        if(is_null($this->whenCases))
+        {
+            $this->whenCases = collect();
+        }
+    }
+
+    /**
      * Register a WhenCase.
      *
      * @param bool|callable $condition

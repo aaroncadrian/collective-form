@@ -6,6 +6,7 @@ use AaronAdrian\CollectiveForm\Contracts\FormContract;
 
 class FormHelper implements FormContract
 {
+    use FormHelperWhenCases;
     /**
      * Repository for all attributes.
      *
@@ -14,21 +15,14 @@ class FormHelper implements FormContract
     protected $attributes;
 
     /**
-     * Repository for all WhenCase instances.
-     *
-     * @see renderWhenCases
-     *
-     * @var \Illuminate\Support\Collection
-     */
-    protected $whenCases;
-
-    /**
      * FormHelper constructor.
+     *
+     * @see constructWhenCases
      */
     public function __construct()
     {
         $this->attributes = collect();
-        $this->whenCases = collect();
+        $this->constructWhenCases();
     }
 
     /**
