@@ -26,6 +26,32 @@ class WhenTest extends TestCase
     }
 
     /** @test */
+    public function post_when_true()
+    {
+        $form = Form::postWhen(true, '/is-true')
+            ->patch()->url('/is-false')
+            ->toArray();
+
+        $this->assertArraySubset([
+            'method' => 'post',
+            'url' => '/is-true',
+        ], $form);
+    }
+
+    /** @test */
+    public function post_when_false()
+    {
+        $form = Form::postWhen(false, '/is-true')
+            ->patch()->url('/is-false')
+            ->toArray();
+
+        $this->assertArraySubset([
+            'method' => 'patch',
+            'url' => '/is-false',
+        ], $form);
+    }
+
+    /** @test */
     public function when_condition_is_false()
     {
         $form = Form::when(function() {
