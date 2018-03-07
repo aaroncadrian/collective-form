@@ -2,7 +2,7 @@
 
 namespace AaronAdrian\CollectiveForm\Tests;
 
-use AaronAdrian\CollectiveForm\CollectiveFormException;
+use AaronAdrian\CollectiveForm\Exceptions\CollectiveFormException;
 use AaronAdrian\CollectiveForm\Facades\Form;
 use AaronAdrian\CollectiveForm\FormHelper;
 

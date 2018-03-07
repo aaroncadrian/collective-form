@@ -2,6 +2,8 @@
 
 namespace AaronAdrian\CollectiveForm;
 
+use AaronAdrian\CollectiveForm\Exceptions\CollectiveFormException;
+
 class WhenCase
 {
     /**
