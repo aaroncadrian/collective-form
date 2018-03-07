@@ -15,7 +15,7 @@ class FormHelperTest extends TestCase
     public function get_with_uri()
     {
         $this->assertArraySubset([
-            'url' => 'http://form.test/example-show',
+            'route' => ['example.show'],
             'method' => 'get',
         ], Form::get('example.show')
             ->toArray());
@@ -120,7 +120,7 @@ class FormHelperTest extends TestCase
     public function route_testing()
     {
         $this->assertArraySubset([
-            'url' => 'http://form.test/example-show',
+            'route' => ['example.show'],
         ], Form::post('example.show')
             ->toArray());
     }
@@ -132,7 +132,7 @@ class FormHelperTest extends TestCase
     public function route_testing_with_options()
     {
         $this->assertArraySubset([
-            'url' => 'http://form.test/example-store/test',
+            'route' => ['example.store', 'form' => 'test'],
         ], Form::post('example.store', ['form' => 'test'])
             ->toArray());
     }
