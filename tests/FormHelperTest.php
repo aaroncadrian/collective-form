@@ -10,67 +10,93 @@ class FormHelperTest extends TestCase
     /** @test */
     public function get_with_uri()
     {
-        $form = Form::get('example.show')->toArray();
         $this->assertArraySubset([
             'url' => 'http://form.test/example-show',
             'method' => 'get',
-        ], $form);
+        ], Form::get('example.show')
+            ->toArray());
     }
 
     /** @test */
     public function post_with_url()
     {
-        $form = Form::post()->url('https://api.somewhere.test/example')->toArray();
         $this->assertArraySubset([
             'url' => 'https://api.somewhere.test/example',
             'method' => 'post',
-        ], $form);
+        ], Form::post()
+            ->url('https://api.somewhere.test/example')
+            ->toArray());
+    }
+
+    /** @test */
+    public function does_not_double_methods()
+    {
+        $this->assertArraySubset([
+            'method' => 'patch',
+        ], Form::post()
+            ->patch()
+            ->toArray());
+    }
+
+    /** @test */
+    public function does_not_double_routes()
+    {
+        $this->assertArraySubset([
+            'url' => 'https://api.somewhere.test/example',
+        ], Form::get('example.show')
+            ->url('https://api.somewhere.test/example')
+            ->toArray());
     }
 
     /** @test */
     public function patch_with_url_and_files()
     {
-        $form = Form::patch()->url('https://api.somewhere.test/example')->files()->toArray();
         $this->assertArraySubset([
             'files' => true,
             'url' => 'https://api.somewhere.test/example',
             'method' => 'patch',
-        ], $form);
+        ], Form::patch()
+            ->url('https://api.somewhere.test/example')
+            ->files()
+            ->toArray());
     }
 
     /** @test */
     public function files_off()
     {
-        $form = Form::post()->files(false)->toArray();
         $this->assertArraySubset([
             'files' => false,
-        ], $form);
+        ], Form::post()
+            ->files(false)
+            ->toArray());
     }
 
     /** @test */
     public function route_testing()
     {
-        $form = Form::post('example.show')->toArray();
         $this->assertArraySubset([
             'url' => 'http://form.test/example-show',
-        ], $form);
+        ], Form::post('example.show')
+            ->toArray());
     }
 
     /** @test */
     public function route_testing_with_options()
     {
-        $form = Form::post('example.store', ['form' => 'test'])->toArray();
         $this->assertArraySubset([
             'url' => 'http://form.test/example-store/test',
-        ], $form);
+        ], Form::post('example.store', ['form' => 'test'])
+            ->toArray());
     }
 
     /** @test */
     public function use_the_with_method()
     {
-        $form = Form::post()->url('/')->with(['id' => 'testing-id'])->toArray();
         $this->assertArraySubset([
             'id' => 'testing-id',
-        ], $form);
+        ], Form::post()
+            ->url('/')
+            ->with(['id' => 'testing-id'])
+            ->toArray());
     }
 }
