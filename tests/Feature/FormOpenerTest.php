@@ -82,7 +82,6 @@ class FormOpenerTest extends TestCase
 
     /**
      * @test
-     * @group current
      * @group Opener
      */
     public function route()
