@@ -2,18 +2,17 @@
 
 namespace AaronAdrian\CollectiveForm;
 
-use AaronAdrian\CollectiveForm\Contracts\FormContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\ServiceProvider;
 
 class CollectiveFormServiceProvider extends ServiceProvider
 {
-    protected $defer = true;
-
     public function boot()
     {
-        $this->app->bind(FormContract::class, FormHelper::class);
+        $this->app->bind('form-helper', function() {
+            return new FormHelper;
+        });
         $this->registerRoutes();
         $this->registerOpenerMacro();
     }
@@ -50,12 +49,5 @@ class CollectiveFormServiceProvider extends ServiceProvider
         {
             $this->loadRoutesFrom(__DIR__.'/example-routes.php');
         }
-    }
-
-    public function provides()
-    {
-        return [
-            FormContract::class,
-        ];
     }
 }
