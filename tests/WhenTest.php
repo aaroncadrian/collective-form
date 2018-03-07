@@ -4,7 +4,7 @@ namespace AaronAdrian\CollectiveForm\Tests;
 
 use AaronAdrian\CollectiveForm\Exceptions\CollectiveFormException;
 use AaronAdrian\CollectiveForm\Facades\Form;
-use AaronAdrian\CollectiveForm\FormHelper;
+use AaronAdrian\CollectiveForm\Services\FormHelper;
 
 class WhenTest extends TestCase
 {
