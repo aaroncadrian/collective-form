@@ -40,4 +40,47 @@ class WhenCase
         $this->ifFalse = $ifFalse;
     }
 
+    /**
+     * @throws CollectiveFormException
+     */
+    public function handle()
+    {
+        if($this->conditionIsTrue())
+        {
+            $this->handleTrue();
+        }
+
+        $this->handleFalse();
+    }
+
+    protected function handleTrue()
+    {
+        call_user_func($this->ifTrue, $this->form);
+    }
+
+    protected function handleFalse()
+    {
+        if(!is_null($this->ifFalse))
+        {
+            call_user_func($this->ifFalse, $this->form);
+        }
+    }
+
+    /**
+     * @return bool
+     * @throws CollectiveFormException
+     */
+    protected function conditionIsTrue()
+    {
+        $result = is_callable($this->condition) ? call_user_func($this->condition) : $this->condition;
+
+        if(is_bool($result))
+        {
+            return $result;
+        }
+
+        throw new CollectiveFormException('Condition does not resolve to be a boolean value');
+
+    }
+
 }
