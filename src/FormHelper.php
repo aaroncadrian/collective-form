@@ -64,7 +64,7 @@ class FormHelper implements FormContract
 
     public function toArray()
     {
-        $this->render();
+        $this->renderWhenCases();
         return $this->attributes->toArray();
     }
 
@@ -88,57 +88,16 @@ class FormHelper implements FormContract
 
     public function when($condition, callable $ifTrue, callable $ifFalse = null)
     {
-        $this->whenCases->push([
-            'condition' => $condition,
-            'ifTrue' => $ifTrue,
-            'ifFalse' => $ifFalse,
-        ]);
-
+        $this->whenCases->push(new WhenCase($this, $condition, $ifTrue, $ifFalse));
         return $this;
-    }
-
-    protected function render()
-    {
-        $this->renderWhenCases();
     }
 
     protected function renderWhenCases()
     {
-        $this->whenCases->each(function($case) {
-            if($this->determineCondition($case['condition']) === true)
-            {
-                return $case['ifTrue']($this);
-            }
-
-            if(!is_null($case['ifFalse']))
-            {
-                return $case['ifFalse']($this);
-            }
+        $this->whenCases->each(function(WhenCase $case) {
+            $case->handle();
         });
 
     }
 
-    /**
-     * @param callable|boolean $condition
-     * @throws CollectiveFormException
-     */
-    protected function determineCondition($condition)
-    {
-        if(is_callable($condition))
-        {
-            $result = $condition();
-            if(!is_bool($result))
-            {
-                throw new CollectiveFormException('Return value from callable is not a boolean.');
-            }
-            return $result;
-        }
-
-        if(is_bool($condition))
-        {
-            return $condition;
-        }
-
-        throw new CollectiveFormException('Condition passed to FormHelper is not callable or a boolean.');
-    }
 }
