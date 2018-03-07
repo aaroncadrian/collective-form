@@ -2,9 +2,9 @@
 
 namespace AaronAdrian\CollectiveForm;
 
-use AaronAdrian\CollectiveForm\Contracts\FormContract;
+use Illuminate\Contracts\Support\Arrayable;
 
-class FormHelper implements FormContract
+class FormHelper implements Arrayable
 {
     use FormHelperWhenCases;
     /**
