@@ -18,6 +18,14 @@ class FormHelperTest extends TestCase
     }
 
     /** @test */
+    public function id_attribute()
+    {
+        $this->assertArraySubset([
+            'id' => 'example-test-form',
+        ], Form::get('example.show')->id('example-test-form')->toArray());
+    }
+
+    /** @test */
     public function post_with_url()
     {
         $this->assertArraySubset([
