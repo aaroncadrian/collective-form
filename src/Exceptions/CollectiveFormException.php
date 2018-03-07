@@ -1,6 +1,6 @@
 <?php
 
-namespace AaronAdrian\CollectiveForm;
+namespace AaronAdrian\CollectiveForm\Exceptions;
 
 class CollectiveFormException extends \Exception
 {
