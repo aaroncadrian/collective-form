@@ -71,9 +71,7 @@ class WhenCase
      */
     protected function conditionIsTrue()
     {
-        $result = is_callable($this->condition) ? call_user_func($this->condition) : $this->condition;
-
-        if(is_bool($result))
+        if(is_bool($result = value($this->condition)))
         {
             return $result;
         }
