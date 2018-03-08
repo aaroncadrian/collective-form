@@ -19,6 +19,9 @@
         }
     ],
     "autoload": {
+        "files": [
+            "src/Services/helpers.php"
+        ],
         "psr-4": {
             "AaronAdrian\\CollectiveForm\\": "src/"
         }
