@@ -112,8 +112,6 @@ trait FormHelperWhenCases
      */
     protected function renderWhenCases()
     {
-        $this->whenCases->each(function(WhenCase $case) {
-            $case->handle();
-        });
+        $this->whenCases->each->handle();
     }
 }
