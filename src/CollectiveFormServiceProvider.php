@@ -11,11 +11,16 @@ class CollectiveFormServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->registerFormHelper();
+        $this->registerRoutes();
+        $this->registerOpenerMacro();
+    }
+
+    protected function registerFormHelper()
+    {
         $this->app->bind('form-helper', function() {
             return new FormHelper;
         });
-        $this->registerRoutes();
-        $this->registerOpenerMacro();
     }
 
     protected function registerOpenerMacro()
